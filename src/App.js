@@ -8,6 +8,9 @@ import Spardle from "./images/SpardleSwordfish.gif";
 import Uniflow from "./images/UniflowWhale.gif";
 import TutorYall from "./images/TutorYallSchoolofFish.gif";
 
+import arrow from "./images/arrow.png";
+import net from "./images/net.png";
+import bubble from "./images/bubble.png";
 import background from "./images/background.png";
 import spardle1 from "./images/spardle1.png";
 import spardle2 from "./images/spardle2.png";
@@ -17,6 +20,8 @@ import tutoryall from "./images/tutoryall.png";
 import night1 from "./images/night knight 1.png";
 import night2 from "./images/night knight 2.png";
 import headline from "./images/headline.png";
+import uniflow1 from "./images/Uniflow 1.png";
+import uniflow2 from "./images/Uniflow 2.png";
 
 let allData = {
   Spardle: {
@@ -78,7 +83,7 @@ let allData = {
     header: "IEL",
     link: "",
     description:
-      "A 2D retro-style shooter inspired by the Binding of Isaac and Enter the Gungeon. A minimalistic game using a custom made game engine.",
+      "I interned at IEL this past summer. I designed and implemented the frontend for an internal dashboard controlling status and other info on company sites, centralizing data. I introduced the company to Figma as a tool to expedite the frontend design process.",
     images: [],
   },
   Uniflow: {
@@ -87,8 +92,8 @@ let allData = {
     header: "Uniflow",
     link: "",
     description:
-      "A 2D retro-style shooter inspired by the Binding of Isaac and Enter the Gungeon. A minimalistic game using a custom made game engine.",
-    images: [],
+      "I interned at Uniflow, an ed-tech startup helping students take advantage of resources at their universities, as their only high school intern. I worked with the CTO to help build the core product, including an interface enabling users to create clubs with custom drag and drop. Check out some stuff I programmed on the right!",
+    images: [uniflow1, uniflow2],
   },
 };
 
@@ -98,6 +103,12 @@ function App() {
   const setTimer = data => {
     timerRef.current = data;
     _setTimer(data);
+  };
+  const [bubbleTimer, _setBubbleTimer] = useState([0, 10, 20, 30, 40, 50, 60, 70, 80, 90]);
+  const bubbleTimerRef = React.useRef(bubbleTimer);
+  const setBubbleTimer = data => {
+    bubbleTimerRef.current = data;
+    _setBubbleTimer(data);
   };
   const [imageCounter, setImageCounter] = useState(0);
   const [image, setImage] = useState("");
@@ -213,6 +224,12 @@ function App() {
   }
 
   useEffect(() => {
+
+    window.addEventListener("mousemove", (e) => {
+      document.getElementById("net-cursor").style.left = e.clientX + "px";
+      document.getElementById("net-cursor").style.top = e.clientY + "px";
+    });
+
     let Headline = document.getElementById("Headline");
     let newStates = fishStates;
     newStates.Headline.x = 30;
@@ -263,6 +280,18 @@ function App() {
       let newStates = fishStates;
 
       // console.log(newStates)
+      for(let i = 0; i < 10; i++){
+        let currentBubble = i + 1;
+        console.log(timerRef.current , bubbleTimerRef.current[i])
+        if(timerRef.current > bubbleTimerRef.current[i]){
+          console.log("true for " + currentBubble + " at " + timerRef.current)
+          document.getElementById("bubble" + currentBubble).style.left = document.getElementById("net-cursor").style.left;
+          document.getElementById("bubble" + currentBubble).style.top = document.getElementById("net-cursor").style.top;
+          let tempBubble = bubbleTimerRef.current;
+          tempBubble[i] = timerRef.current + 10;
+          setBubbleTimer(tempBubble)
+        }
+      }
 
 
       //Headline fish control
@@ -678,6 +707,23 @@ function App() {
         src={TutorYall}
       />
 
+      <img 
+        id="net-cursor"
+        className="net-cursor"
+        src={net}
+      />
+      <img className="bubble" id="bubble1" src={bubble}/>
+      <img className="bubble" id="bubble2" src={bubble}/>
+      <img className="bubble" id="bubble3" src={bubble}/>
+      <img className="bubble" id="bubble4" src={bubble}/>
+      <img className="bubble" id="bubble5" src={bubble}/>
+      <img className="bubble" id="bubble6" src={bubble}/>
+      <img className="bubble" id="bubble7" src={bubble}/>
+      <img className="bubble" id="bubble8" src={bubble}/>
+      <img className="bubble" id="bubble9" src={bubble}/>
+      <img className="bubble" id="bubble10" src={bubble}/>
+
+
       <div className="modal-dark" id="modal-dark">
         <div className="modal">
           <div className="text-container" id="text-container">
@@ -726,14 +772,14 @@ function App() {
                     onClick={() => {
                       updateImage("left");
                     }}
-                    src="https://www.pngitem.com/pimgs/m/244-2446737_modern-arrow-png-transparent-png.png"
+                    src={arrow}
                     className="left-controls"
                   />
                   <img
                     onClick={() => {
                       updateImage("right");
                     }}
-                    src="https://www.pngitem.com/pimgs/m/244-2446737_modern-arrow-png-transparent-png.png"
+                    src={arrow}
                     className="right-controls"
                   />
                 </React.Fragment>

@@ -107,7 +107,7 @@ function App() {
     timerRef.current = data;
     _setTimer(data);
   };
-  const [bubbleTimer, _setBubbleTimer] = useState([0, 10, 20, 30, 40, 50, 60, 70, 80, 90]);
+  const [bubbleTimer, _setBubbleTimer] = useState([0, 20, 40, 60, 80, 100, 120, 140, 160, 180]);
   const bubbleTimerRef = React.useRef(bubbleTimer);
   const setBubbleTimer = data => {
     bubbleTimerRef.current = data;
@@ -247,6 +247,7 @@ function App() {
   useEffect(() => {
     let timeout;
     window.addEventListener("mousemove", (e) => {
+      window.clearTimeout(timeout);
       if(parseInt(document.getElementById("net-cursor").style.left) > e.clientX){
         document.getElementById("net-cursor").style.transform = "translateX(-50%) translateY(-50%) scaleX(1)"
       } else {
@@ -264,7 +265,8 @@ function App() {
           let currentBubble = i + 1;
           document.getElementById("bubble" + currentBubble).style.display = "none";
         }
-      }, 500);
+        console.log(0)
+      }, 1000);
     });
 
     let Headline = document.getElementById("Headline");
@@ -330,16 +332,13 @@ function App() {
     var interval = setInterval(function () {
       let newStates = fishStates;
 
-      // console.log(newStates)
       for(let i = 0; i < 10; i++){
         let currentBubble = i + 1;
-        console.log(timerRef.current , bubbleTimerRef.current[i])
         if(timerRef.current > bubbleTimerRef.current[i]){
-          console.log("true for " + currentBubble + " at " + timerRef.current)
           document.getElementById("bubble" + currentBubble).style.left = document.getElementById("net-cursor").style.left;
           document.getElementById("bubble" + currentBubble).style.top = document.getElementById("net-cursor").style.top;
           let tempBubble = bubbleTimerRef.current;
-          tempBubble[i] = timerRef.current + 10;
+          tempBubble[i] = timerRef.current + 30;
           setBubbleTimer(tempBubble)
         }
       }

@@ -1,38 +1,143 @@
-.App {
-  text-align: center;
+.container {
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.tank {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.tank-dark {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background-color: black;
+  opacity: 0.3;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.fish {
+  width: 10vw;
+  position: absolute;
+  cursor: pointer;
+  background-image: radial-gradient(rgba(255, 255, 0, 0.75), rgba(0, 0, 0, 0.0));
+  border-radius: 30%;
+}
+
+.fish-big {
+  width: 15vw;
+  position: absolute;
+  cursor: pointer;
+  background-image: radial-gradient(rgba(255, 255, 0, 0.75), rgba(0, 0, 0, 0.0));
+  border-radius: 30%;
+}
+
+.fish-takes-space {
+  width: 10vw;
+}
+
+.modal-dark {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  display: none;
+}
+
+.modal {
+  height: calc(90% - 100px);
+  width: calc(90% - 100px);
+  background-color: #EEEEEE;
+  border-radius: 50px;
+  padding: 50px;
+  overflow-y: auto;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-modal {
+  text-decoration: underline;
+  color: dodgerblue;
+  cursor: pointer;
+}
+
+.fadeModal {
+  animation: fadeModal 1s ease-in-out;
+}
+
+@keyframes fadeModal {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+.showModal {
+  animation: showModal 1s ease-in-out;
+}
+
+@keyframes showModal {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.left-controls {
+  position: absolute;
+  top: 50%;
+  left: 50px;
+  transform: translateY(-50%) scaleX(-1);
+  height: 50px;
+  cursor: pointer;
+}
+
+.right-controls {
+  position: absolute;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+  height: 50px;
+  cursor: pointer;
+}
+
+.project-image {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.text-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: calc((100% - 50px) / 2);
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.image-container {
+  width: calc((100% - 50px) / 2);
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fadeOut {
+  animation: fadeOut 0.5s ease-in-out;
+}
+
+.fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeOut {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

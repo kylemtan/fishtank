@@ -64,10 +64,10 @@ p, h1, h2, a {
   cursor: pointer;
   background-image: radial-gradient(
     rgba(255, 255, 0, 1),
-    rgba(255, 255, 0, 0.1),
+    rgba(255, 255, 0, 0.01),
     rgba(0, 0, 0, 0)
   );
-  border-radius: 30%;
+  border-radius: 10%;
   overflow: hidden;
 }
 
@@ -77,10 +77,10 @@ p, h1, h2, a {
   cursor: pointer;
   background-image: radial-gradient(
     rgba(255, 255, 0, 1),
-    rgba(255, 255, 0, 0.1),
+    rgba(255, 255, 0, 0.01),
     rgba(0, 0, 0, 0)
   );
-  border-radius: 30%;
+  border-radius: 10%;
   overflow: hidden;
 }
 
@@ -90,10 +90,10 @@ p, h1, h2, a {
   cursor: pointer;
   background-image: radial-gradient(
     rgba(255, 255, 0, 1),
-    rgba(255, 255, 0, 0.1),
+    rgba(255, 255, 0, 0.01),
     rgba(0, 0, 0, 0)
   );
-  border-radius: 50%;
+  border-radius: 10%;
 }
 
 .fish-takes-space {

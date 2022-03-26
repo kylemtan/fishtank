@@ -9,7 +9,7 @@ import Uniflow from "./images/UniflowWhale.gif";
 import TutorYall from "./images/TutorYallSchoolofFish.gif";
 import arcadechatroom from "./images/arcade-chatroom.gif";
 import NightKnight from "./images/nightknight.gif";
-
+import laptop from "./images/laptop.gif";
 
 import arrow from "./images/arrow.png";
 import net from "./images/net.png";
@@ -55,7 +55,7 @@ let allData = {
     images: ["https://www.loom.com/embed/7a4df7fe39954511ad5260afe4b2204d"],
   },
   arcadechatroom: {
-    fish: "Friendly Fish",
+    fish: "Cool n'Friendly Pufferfish",
     fishImage: arcadechatroom,
     header: "arcade-chatroom",
     link: "https://warm-ravine-86373.herokuapp.com/",
@@ -98,18 +98,29 @@ let allData = {
       "I interned at Uniflow, an ed-tech startup helping students take advantage of resources at their universities, as their only high school intern. I worked with the CTO to help build the core product, including an interface enabling users to create clubs with custom drag and drop. Check out some stuff I programmed on the right!",
     images: [uniflow1, uniflow2],
   },
+  Laptop: {
+    fish: "Laptop. Not a fish",
+    fishImage: laptop,
+    header: "Contact Me",
+    link: "",
+    description:
+      "I'd love to talk anytime, and you can DM me on twitter at @kylemtan or shoot me an email at kylemacasillitan@gmail.com. Also, I'm always looking for internship offers, so I would love to hear of any availabilities you have or people I can contact. Thanks!",
+    images: [uniflow1, uniflow2],
+  },
 };
 
 function App() {
   const [timer, _setTimer] = useState(0);
   const timerRef = React.useRef(timer);
-  const setTimer = data => {
+  const setTimer = (data) => {
     timerRef.current = data;
     _setTimer(data);
   };
-  const [bubbleTimer, _setBubbleTimer] = useState([0, 20, 40, 60, 80, 100, 120, 140, 160, 180]);
+  const [bubbleTimer, _setBubbleTimer] = useState([
+    0, 20, 40, 60, 80, 100, 120, 140, 160, 180,
+  ]);
   const bubbleTimerRef = React.useRef(bubbleTimer);
-  const setBubbleTimer = data => {
+  const setBubbleTimer = (data) => {
     bubbleTimerRef.current = data;
     _setBubbleTimer(data);
   };
@@ -197,6 +208,15 @@ function App() {
       duration: "",
       start: 0,
     },
+    Laptop: {
+      status: "idle",
+      x: -10,
+      y: -10,
+      xto: 50,
+      yto: 50,
+      duration: "",
+      start: 0,
+    },
   });
 
   function updateImage(direction) {
@@ -248,24 +268,29 @@ function App() {
     let timeout;
     window.addEventListener("mousemove", (e) => {
       window.clearTimeout(timeout);
-      if(parseInt(document.getElementById("net-cursor").style.left) > e.clientX){
-        document.getElementById("net-cursor").style.transform = "translateX(-50%) translateY(-50%) scaleX(1)"
+      if (
+        parseInt(document.getElementById("net-cursor").style.left) > e.clientX
+      ) {
+        document.getElementById("net-cursor").style.transform =
+          "translateX(-50%) translateY(-50%) scaleX(1)";
       } else {
-        document.getElementById("net-cursor").style.transform = "translateX(-50%) translateY(-50%) scaleX(-1)"
-
+        document.getElementById("net-cursor").style.transform =
+          "translateX(-50%) translateY(-50%) scaleX(-1)";
       }
       document.getElementById("net-cursor").style.left = e.clientX + "px";
       document.getElementById("net-cursor").style.top = e.clientY + "px";
-      for(let i = 0; i < 10; i++){
+      for (let i = 0; i < 10; i++) {
         let currentBubble = i + 1;
-        document.getElementById("bubble" + currentBubble).style.display = "block";
+        document.getElementById("bubble" + currentBubble).style.display =
+          "block";
       }
       timeout = setTimeout(() => {
-        for(let i = 0; i < 10; i++){
+        for (let i = 0; i < 10; i++) {
           let currentBubble = i + 1;
-          document.getElementById("bubble" + currentBubble).style.display = "none";
+          document.getElementById("bubble" + currentBubble).style.display =
+            "none";
         }
-        console.log(0)
+        console.log(0);
       }, 1000);
     });
 
@@ -317,10 +342,17 @@ function App() {
     setFishStates(newStates);
 
     let NightKnight = document.getElementById("NightKnight");
-    newStates.NightKnight.x = 10;
+    newStates.NightKnight.x = 0;
     newStates.NightKnight.y = 70;
-    NightKnight.style.left = "10vw";
+    NightKnight.style.left = "0vw";
     NightKnight.style.top = "70vh";
+    setFishStates(newStates);
+
+    let Laptop = document.getElementById("Laptop");
+    newStates.Laptop.x = 70;
+    newStates.Laptop.y = 10;
+    Laptop.style.left = "70vw";
+    Laptop.style.top = "10vh";
     setFishStates(newStates);
   }, []);
 
@@ -332,20 +364,21 @@ function App() {
     var interval = setInterval(function () {
       let newStates = fishStates;
 
-      for(let i = 0; i < 10; i++){
+      for (let i = 0; i < 10; i++) {
         let currentBubble = i + 1;
-        if(timerRef.current > bubbleTimerRef.current[i]){
-          document.getElementById("bubble" + currentBubble).style.left = document.getElementById("net-cursor").style.left;
-          document.getElementById("bubble" + currentBubble).style.top = document.getElementById("net-cursor").style.top;
+        if (timerRef.current > bubbleTimerRef.current[i]) {
+          document.getElementById("bubble" + currentBubble).style.left =
+            document.getElementById("net-cursor").style.left;
+          document.getElementById("bubble" + currentBubble).style.top =
+            document.getElementById("net-cursor").style.top;
           let tempBubble = bubbleTimerRef.current;
           tempBubble[i] = timerRef.current + 30;
-          setBubbleTimer(tempBubble)
+          setBubbleTimer(tempBubble);
         }
       }
 
-
       //Headline fish control
-    if (
+      if (
         newStates.Headline.status === "moving" &&
         newStates.Headline.duration + newStates.Headline.start + 5 <= timer
       ) {
@@ -668,7 +701,10 @@ function App() {
       //arcadechatroom fish control
       if (
         newStates.arcadechatroom.status === "moving" &&
-        newStates.arcadechatroom.duration + newStates.arcadechatroom.start + 5 <= timer
+        newStates.arcadechatroom.duration +
+          newStates.arcadechatroom.start +
+          5 <=
+          timer
       ) {
         newStates.arcadechatroom.status = "idle";
         newStates.arcadechatroom.xorigin = newStates.arcadechatroom.x;
@@ -682,22 +718,38 @@ function App() {
         newStates.arcadechatroom.xorigin = newStates.arcadechatroom.x;
         newStates.arcadechatroom.yorigin = newStates.arcadechatroom.y;
         if (Math.random() < 0.5) {
-          newStates.arcadechatroom.xto = randomBetween(0, newStates.arcadechatroom.x);
-          document.getElementById("arcadechatroom").style.transform = "scaleX(1)";
+          newStates.arcadechatroom.xto = randomBetween(
+            0,
+            newStates.arcadechatroom.x
+          );
+          document.getElementById("arcadechatroom").style.transform =
+            "scaleX(1)";
         } else {
-          newStates.arcadechatroom.xto = randomBetween(newStates.arcadechatroom.x, 85);
-          document.getElementById("arcadechatroom").style.transform = "scaleX(-1)";
+          newStates.arcadechatroom.xto = randomBetween(
+            newStates.arcadechatroom.x,
+            85
+          );
+          document.getElementById("arcadechatroom").style.transform =
+            "scaleX(-1)";
         }
         if (Math.random() < 0.5) {
-          newStates.arcadechatroom.yto = randomBetween(20, newStates.arcadechatroom.y);
+          newStates.arcadechatroom.yto = randomBetween(
+            20,
+            newStates.arcadechatroom.y
+          );
         } else {
-          newStates.arcadechatroom.yto = randomBetween(newStates.arcadechatroom.y, 75);
+          newStates.arcadechatroom.yto = randomBetween(
+            newStates.arcadechatroom.y,
+            75
+          );
         }
         newStates.arcadechatroom.duration = randomBetween(180, 360);
       } else if (newStates.arcadechatroom.status === "moving") {
         let percentage =
           1 -
-          (newStates.arcadechatroom.duration + newStates.arcadechatroom.start - timer) /
+          (newStates.arcadechatroom.duration +
+            newStates.arcadechatroom.start -
+            timer) /
             newStates.arcadechatroom.duration;
         if (newStates.arcadechatroom.xto > newStates.arcadechatroom.xorigin) {
           newStates.arcadechatroom.x =
@@ -718,7 +770,8 @@ function App() {
         } else {
           newStates.arcadechatroom.y =
             newStates.arcadechatroom.yorigin -
-            (newStates.arcadechatroom.yorigin - newStates.Spardle.yto) * percentage;
+            (newStates.arcadechatroom.yorigin - newStates.Spardle.yto) *
+              percentage;
         }
       } else {
       }
@@ -726,7 +779,8 @@ function App() {
       //NightKnight fish control
       if (
         newStates.NightKnight.status === "moving" &&
-        newStates.NightKnight.duration + newStates.NightKnight.start + 5 <= timer
+        newStates.NightKnight.duration + newStates.NightKnight.start + 5 <=
+          timer
       ) {
         newStates.NightKnight.status = "idle";
         newStates.NightKnight.xorigin = newStates.NightKnight.x;
@@ -743,19 +797,30 @@ function App() {
           newStates.NightKnight.xto = randomBetween(0, newStates.NightKnight.x);
           document.getElementById("NightKnight").style.transform = "scaleX(1)";
         } else {
-          newStates.NightKnight.xto = randomBetween(newStates.NightKnight.x, 85);
+          newStates.NightKnight.xto = randomBetween(
+            newStates.NightKnight.x,
+            85
+          );
           document.getElementById("NightKnight").style.transform = "scaleX(-1)";
         }
         if (Math.random() < 0.5) {
-          newStates.NightKnight.yto = randomBetween(20, newStates.NightKnight.y);
+          newStates.NightKnight.yto = randomBetween(
+            20,
+            newStates.NightKnight.y
+          );
         } else {
-          newStates.NightKnight.yto = randomBetween(newStates.NightKnight.y, 75);
+          newStates.NightKnight.yto = randomBetween(
+            newStates.NightKnight.y,
+            75
+          );
         }
         newStates.NightKnight.duration = randomBetween(180, 360);
       } else if (newStates.NightKnight.status === "moving") {
         let percentage =
           1 -
-          (newStates.NightKnight.duration + newStates.NightKnight.start - timer) /
+          (newStates.NightKnight.duration +
+            newStates.NightKnight.start -
+            timer) /
             newStates.NightKnight.duration;
         if (newStates.NightKnight.xto > newStates.NightKnight.xorigin) {
           newStates.NightKnight.x =
@@ -776,7 +841,60 @@ function App() {
         } else {
           newStates.NightKnight.y =
             newStates.NightKnight.yorigin -
-            (newStates.NightKnight.yorigin - newStates.Spardle.yto) * percentage;
+            (newStates.NightKnight.yorigin - newStates.Spardle.yto) *
+              percentage;
+        }
+      } else {
+      }
+
+      //Laptop fish control
+      if (
+        newStates.Laptop.status === "moving" &&
+        newStates.Laptop.duration + newStates.Laptop.start + 5 <= timer
+      ) {
+        newStates.Laptop.status = "idle";
+        newStates.Laptop.xorigin = newStates.Laptop.x;
+        newStates.Laptop.yorigin = newStates.Laptop.y;
+      } else if (newStates.Laptop.status === "idle" && Math.random() < 0.005) {
+        newStates.Laptop.status = "moving";
+        newStates.Laptop.start = timer;
+        newStates.Laptop.xorigin = newStates.Laptop.x;
+        newStates.Laptop.yorigin = newStates.Laptop.y;
+        if (Math.random() < 0.5) {
+          newStates.Laptop.xto = randomBetween(0, newStates.Laptop.x);
+          document.getElementById("Laptop").style.transform = "scaleX(1)";
+        } else {
+          newStates.Laptop.xto = randomBetween(newStates.Laptop.x, 85);
+          document.getElementById("Laptop").style.transform = "scaleX(-1)";
+        }
+        if (Math.random() < 0.5) {
+          newStates.Laptop.yto = randomBetween(20, newStates.Laptop.y);
+        } else {
+          newStates.Laptop.yto = randomBetween(newStates.Laptop.y, 75);
+        }
+        newStates.Laptop.duration = randomBetween(180, 360);
+      } else if (newStates.Laptop.status === "moving") {
+        let percentage =
+          1 -
+          (newStates.Laptop.duration + newStates.Laptop.start - timer) /
+            newStates.Laptop.duration;
+        if (newStates.Laptop.xto > newStates.Laptop.xorigin) {
+          newStates.Laptop.x =
+            newStates.Laptop.xorigin +
+            (newStates.Laptop.xto - newStates.Laptop.xorigin) * percentage;
+        } else {
+          newStates.Laptop.x =
+            newStates.Laptop.xorigin -
+            (newStates.Laptop.xorigin - newStates.Laptop.xto) * percentage;
+        }
+        if (newStates.Laptop.yto > newStates.Laptop.yorigin) {
+          newStates.Laptop.y =
+            newStates.Laptop.yorigin +
+            (newStates.Laptop.yto - newStates.Laptop.yorigin) * percentage;
+        } else {
+          newStates.Laptop.y =
+            newStates.Laptop.yorigin -
+            (newStates.Laptop.yorigin - newStates.Spardle.yto) * percentage;
         }
       } else {
       }
@@ -816,6 +934,10 @@ function App() {
       let NightKnight = document.getElementById("NightKnight");
       NightKnight.style.left = newStates.NightKnight.x + "vw";
       NightKnight.style.top = newStates.NightKnight.y + "vh";
+
+      let Laptop = document.getElementById("Laptop");
+      Laptop.style.left = newStates.Laptop.x + "vw";
+      Laptop.style.top = newStates.Laptop.y + "vh";
       setTimer(timer + 1);
     }, 1000 / 60);
 
@@ -824,7 +946,7 @@ function App() {
 
   return (
     <div className="container">
-      <img className="tank" src={background}/>
+      <img className="tank" src={background} />
       <div className="tank-dark"></div>
       <img
         className="fish"
@@ -881,7 +1003,7 @@ function App() {
         src={TutorYall}
       />
       <img
-        className="fish-small"
+        className="fish"
         onClick={(e) => {
           showInfo("arcadechatroom");
           e.target.style.backgroundImage = "none";
@@ -890,7 +1012,7 @@ function App() {
         src={arcadechatroom}
       />
 
-<img
+      <img
         className="fish-big"
         onClick={(e) => {
           showInfo("NightKnight");
@@ -900,22 +1022,27 @@ function App() {
         src={NightKnight}
       />
 
-      <img 
-        id="net-cursor"
-        className="net-cursor"
-        src={net}
+      <img
+        className="fish"
+        onClick={(e) => {
+          showInfo("Laptop");
+          e.target.style.backgroundImage = "none";
+        }}
+        id="Laptop"
+        src={laptop}
       />
-      <img className="bubble" id="bubble1" src={bubble}/>
-      <img className="bubble" id="bubble2" src={bubble}/>
-      <img className="bubble" id="bubble3" src={bubble}/>
-      <img className="bubble" id="bubble4" src={bubble}/>
-      <img className="bubble" id="bubble5" src={bubble}/>
-      <img className="bubble" id="bubble6" src={bubble}/>
-      <img className="bubble" id="bubble7" src={bubble}/>
-      <img className="bubble" id="bubble8" src={bubble}/>
-      <img className="bubble" id="bubble9" src={bubble}/>
-      <img className="bubble" id="bubble10" src={bubble}/>
 
+      <img id="net-cursor" className="net-cursor" src={net} />
+      <img className="bubble" id="bubble1" src={bubble} />
+      <img className="bubble" id="bubble2" src={bubble} />
+      <img className="bubble" id="bubble3" src={bubble} />
+      <img className="bubble" id="bubble4" src={bubble} />
+      <img className="bubble" id="bubble5" src={bubble} />
+      <img className="bubble" id="bubble6" src={bubble} />
+      <img className="bubble" id="bubble7" src={bubble} />
+      <img className="bubble" id="bubble8" src={bubble} />
+      <img className="bubble" id="bubble9" src={bubble} />
+      <img className="bubble" id="bubble10" src={bubble} />
 
       <div className="modal-dark" id="modal-dark">
         <div className="modal">

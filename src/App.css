@@ -13,6 +13,10 @@
   overflow: hidden;
 }
 
+p, h1, h2, a {
+  overflow: auto;
+}
+
 .container {
   overflow: hidden;
   width: 100%;
@@ -32,6 +36,7 @@
 
 .bubble {
   position: absolute;
+  transform: translateX(-95%);
   z-index: 4;
   width: 2vw;
   left: -100px;
@@ -55,6 +60,19 @@
 
 .fish {
   width: 10vw;
+  position: absolute;
+  cursor: pointer;
+  background-image: radial-gradient(
+    rgba(255, 255, 0, 1),
+    rgba(255, 255, 0, 0.1),
+    rgba(0, 0, 0, 0)
+  );
+  border-radius: 30%;
+  overflow: hidden;
+}
+
+.fish-small {
+  width: 6vw;
   position: absolute;
   cursor: pointer;
   background-image: radial-gradient(
@@ -95,15 +113,16 @@
 }
 
 .modal {
-  height: calc(90% - 100px);
-  width: calc(90% - 100px);
+  height: calc(80% - 50px);
+  width: calc(80% - 50px);
   background-color: #eeeeee;
   border-radius: 50px;
-  padding: 50px;
+  padding: 25px;
   overflow-y: auto;
   z-index: 2;
   display: flex;
   justify-content: space-between;
+  overflow-x: hidden;
 }
 
 .close-modal {
@@ -141,18 +160,18 @@
 .left-controls {
   position: absolute;
   top: 50%;
-  left: -40px;
+  left: -20px;
   transform: translateY(-50%) scaleX(-1);
-  height: 50px;
+  height: 20px;
   cursor: pointer;
 }
 
 .right-controls {
   position: absolute;
   top: 50%;
-  right: -40px;
+  right: -20px;
   transform: translateY(-50%);
-  height: 50px;
+  height: 20px;
   cursor: pointer;
 }
 

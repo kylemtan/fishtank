@@ -7,6 +7,9 @@ import skrrt from "./images/skrrtFlyingFish.gif";
 import Spardle from "./images/SpardleSwordfish.gif";
 import Uniflow from "./images/UniflowWhale.gif";
 import TutorYall from "./images/TutorYallSchoolofFish.gif";
+import arcadechatroom from "./images/arcade-chatroom.gif";
+import NightKnight from "./images/nightknight.gif";
+
 
 import arrow from "./images/arrow.png";
 import net from "./images/net.png";
@@ -53,7 +56,7 @@ let allData = {
   },
   arcadechatroom: {
     fish: "Friendly Fish",
-    fishImage: Spardle,
+    fishImage: arcadechatroom,
     header: "arcade-chatroom",
     link: "https://warm-ravine-86373.herokuapp.com/",
     description:
@@ -69,8 +72,8 @@ let allData = {
     images: [headline],
   },
   NightKnight: {
-    fish: "Retro Fish",
-    fishImage: Spardle,
+    fish: "Knight Fish",
+    fishImage: NightKnight,
     header: "Night Knight",
     link: "https://night--knight.glitch.me/",
     description:
@@ -158,6 +161,15 @@ function App() {
       duration: "",
       start: 0,
     },
+    arcadechatroom: {
+      status: "idle",
+      x: -10,
+      y: -10,
+      xto: 50,
+      yto: 50,
+      duration: "",
+      start: 0,
+    },
     TutorYall: {
       status: "idle",
       x: -10,
@@ -168,6 +180,15 @@ function App() {
       start: 0,
     },
     Uniflow: {
+      status: "idle",
+      x: -10,
+      y: -10,
+      xto: 50,
+      yto: 50,
+      duration: "",
+      start: 0,
+    },
+    NightKnight: {
       status: "idle",
       x: -10,
       y: -10,
@@ -224,10 +245,26 @@ function App() {
   }
 
   useEffect(() => {
-
+    let timeout;
     window.addEventListener("mousemove", (e) => {
+      if(parseInt(document.getElementById("net-cursor").style.left) > e.clientX){
+        document.getElementById("net-cursor").style.transform = "translateX(-50%) translateY(-50%) scaleX(1)"
+      } else {
+        document.getElementById("net-cursor").style.transform = "translateX(-50%) translateY(-50%) scaleX(-1)"
+
+      }
       document.getElementById("net-cursor").style.left = e.clientX + "px";
       document.getElementById("net-cursor").style.top = e.clientY + "px";
+      for(let i = 0; i < 10; i++){
+        let currentBubble = i + 1;
+        document.getElementById("bubble" + currentBubble).style.display = "block";
+      }
+      timeout = setTimeout(() => {
+        for(let i = 0; i < 10; i++){
+          let currentBubble = i + 1;
+          document.getElementById("bubble" + currentBubble).style.display = "none";
+        }
+      }, 500);
     });
 
     let Headline = document.getElementById("Headline");
@@ -260,7 +297,14 @@ function App() {
     newStates.Uniflow.x = 80;
     newStates.Uniflow.y = 60;
     Uniflow.style.left = "80vw";
-    Uniflow.style.top = "70vh";
+    Uniflow.style.top = "60vh";
+    setFishStates(newStates);
+
+    let arcadechatroom = document.getElementById("arcadechatroom");
+    newStates.arcadechatroom.x = 50;
+    newStates.arcadechatroom.y = 20;
+    arcadechatroom.style.left = "50vw";
+    arcadechatroom.style.top = "20vh";
     setFishStates(newStates);
 
     let TutorYall = document.getElementById("TutorYall");
@@ -268,6 +312,13 @@ function App() {
     newStates.TutorYall.y = 20;
     TutorYall.style.left = "10vw";
     TutorYall.style.top = "20vh";
+    setFishStates(newStates);
+
+    let NightKnight = document.getElementById("NightKnight");
+    newStates.NightKnight.x = 10;
+    newStates.NightKnight.y = 70;
+    NightKnight.style.left = "10vw";
+    NightKnight.style.top = "70vh";
     setFishStates(newStates);
   }, []);
 
@@ -615,6 +666,122 @@ function App() {
       } else {
       }
 
+      //arcadechatroom fish control
+      if (
+        newStates.arcadechatroom.status === "moving" &&
+        newStates.arcadechatroom.duration + newStates.arcadechatroom.start + 5 <= timer
+      ) {
+        newStates.arcadechatroom.status = "idle";
+        newStates.arcadechatroom.xorigin = newStates.arcadechatroom.x;
+        newStates.arcadechatroom.yorigin = newStates.arcadechatroom.y;
+      } else if (
+        newStates.arcadechatroom.status === "idle" &&
+        Math.random() < 0.005
+      ) {
+        newStates.arcadechatroom.status = "moving";
+        newStates.arcadechatroom.start = timer;
+        newStates.arcadechatroom.xorigin = newStates.arcadechatroom.x;
+        newStates.arcadechatroom.yorigin = newStates.arcadechatroom.y;
+        if (Math.random() < 0.5) {
+          newStates.arcadechatroom.xto = randomBetween(0, newStates.arcadechatroom.x);
+          document.getElementById("arcadechatroom").style.transform = "scaleX(1)";
+        } else {
+          newStates.arcadechatroom.xto = randomBetween(newStates.arcadechatroom.x, 85);
+          document.getElementById("arcadechatroom").style.transform = "scaleX(-1)";
+        }
+        if (Math.random() < 0.5) {
+          newStates.arcadechatroom.yto = randomBetween(20, newStates.arcadechatroom.y);
+        } else {
+          newStates.arcadechatroom.yto = randomBetween(newStates.arcadechatroom.y, 75);
+        }
+        newStates.arcadechatroom.duration = randomBetween(180, 360);
+      } else if (newStates.arcadechatroom.status === "moving") {
+        let percentage =
+          1 -
+          (newStates.arcadechatroom.duration + newStates.arcadechatroom.start - timer) /
+            newStates.arcadechatroom.duration;
+        if (newStates.arcadechatroom.xto > newStates.arcadechatroom.xorigin) {
+          newStates.arcadechatroom.x =
+            newStates.arcadechatroom.xorigin +
+            (newStates.arcadechatroom.xto - newStates.arcadechatroom.xorigin) *
+              percentage;
+        } else {
+          newStates.arcadechatroom.x =
+            newStates.arcadechatroom.xorigin -
+            (newStates.arcadechatroom.xorigin - newStates.arcadechatroom.xto) *
+              percentage;
+        }
+        if (newStates.arcadechatroom.yto > newStates.arcadechatroom.yorigin) {
+          newStates.arcadechatroom.y =
+            newStates.arcadechatroom.yorigin +
+            (newStates.arcadechatroom.yto - newStates.arcadechatroom.yorigin) *
+              percentage;
+        } else {
+          newStates.arcadechatroom.y =
+            newStates.arcadechatroom.yorigin -
+            (newStates.arcadechatroom.yorigin - newStates.Spardle.yto) * percentage;
+        }
+      } else {
+      }
+
+      //NightKnight fish control
+      if (
+        newStates.NightKnight.status === "moving" &&
+        newStates.NightKnight.duration + newStates.NightKnight.start + 5 <= timer
+      ) {
+        newStates.NightKnight.status = "idle";
+        newStates.NightKnight.xorigin = newStates.NightKnight.x;
+        newStates.NightKnight.yorigin = newStates.NightKnight.y;
+      } else if (
+        newStates.NightKnight.status === "idle" &&
+        Math.random() < 0.005
+      ) {
+        newStates.NightKnight.status = "moving";
+        newStates.NightKnight.start = timer;
+        newStates.NightKnight.xorigin = newStates.NightKnight.x;
+        newStates.NightKnight.yorigin = newStates.NightKnight.y;
+        if (Math.random() < 0.5) {
+          newStates.NightKnight.xto = randomBetween(0, newStates.NightKnight.x);
+          document.getElementById("NightKnight").style.transform = "scaleX(1)";
+        } else {
+          newStates.NightKnight.xto = randomBetween(newStates.NightKnight.x, 85);
+          document.getElementById("NightKnight").style.transform = "scaleX(-1)";
+        }
+        if (Math.random() < 0.5) {
+          newStates.NightKnight.yto = randomBetween(20, newStates.NightKnight.y);
+        } else {
+          newStates.NightKnight.yto = randomBetween(newStates.NightKnight.y, 75);
+        }
+        newStates.NightKnight.duration = randomBetween(180, 360);
+      } else if (newStates.NightKnight.status === "moving") {
+        let percentage =
+          1 -
+          (newStates.NightKnight.duration + newStates.NightKnight.start - timer) /
+            newStates.NightKnight.duration;
+        if (newStates.NightKnight.xto > newStates.NightKnight.xorigin) {
+          newStates.NightKnight.x =
+            newStates.NightKnight.xorigin +
+            (newStates.NightKnight.xto - newStates.NightKnight.xorigin) *
+              percentage;
+        } else {
+          newStates.NightKnight.x =
+            newStates.NightKnight.xorigin -
+            (newStates.NightKnight.xorigin - newStates.NightKnight.xto) *
+              percentage;
+        }
+        if (newStates.NightKnight.yto > newStates.NightKnight.yorigin) {
+          newStates.NightKnight.y =
+            newStates.NightKnight.yorigin +
+            (newStates.NightKnight.yto - newStates.NightKnight.yorigin) *
+              percentage;
+        } else {
+          newStates.NightKnight.y =
+            newStates.NightKnight.yorigin -
+            (newStates.NightKnight.yorigin - newStates.Spardle.yto) * percentage;
+        }
+      } else {
+      }
+
       setFishStates(newStates);
 
       // displays
@@ -642,6 +809,14 @@ function App() {
       let TutorYall = document.getElementById("TutorYall");
       TutorYall.style.left = newStates.TutorYall.x + "vw";
       TutorYall.style.top = newStates.TutorYall.y + "vh";
+
+      let arcadechatroom = document.getElementById("arcadechatroom");
+      arcadechatroom.style.left = newStates.arcadechatroom.x + "vw";
+      arcadechatroom.style.top = newStates.arcadechatroom.y + "vh";
+
+      let NightKnight = document.getElementById("NightKnight");
+      NightKnight.style.left = newStates.NightKnight.x + "vw";
+      NightKnight.style.top = newStates.NightKnight.y + "vh";
       setTimer(timer + 1);
     }, 1000 / 60);
 
@@ -705,6 +880,25 @@ function App() {
         }}
         id="TutorYall"
         src={TutorYall}
+      />
+      <img
+        className="fish-small"
+        onClick={(e) => {
+          showInfo("arcadechatroom");
+          e.target.style.backgroundImage = "none";
+        }}
+        id="arcadechatroom"
+        src={arcadechatroom}
+      />
+
+<img
+        className="fish-big"
+        onClick={(e) => {
+          showInfo("NightKnight");
+          e.target.style.backgroundImage = "none";
+        }}
+        id="NightKnight"
+        src={NightKnight}
       />
 
       <img 

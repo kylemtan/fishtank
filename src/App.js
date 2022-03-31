@@ -13,6 +13,8 @@ import laptop from "./images/laptop.gif";
 
 import arrow from "./images/arrow.png";
 import net from "./images/net.png";
+import modalbackground from "./images/modalbackground.png";
+
 import bubble from "./images/bubble.png";
 import background from "./images/background.png";
 import spardle1 from "./images/spardle1.png";
@@ -105,7 +107,7 @@ let allData = {
     link: "",
     description:
       "I'd love to talk anytime, and you can DM me on twitter at @kylemtan or shoot me an email at kylemacasillitan@gmail.com. Also, I'm always looking for internship offers, so I would love to hear of any availabilities you have or people I can contact. Thanks!",
-    images: [uniflow1, uniflow2],
+    images: [],
   },
 };
 
@@ -1046,6 +1048,7 @@ function App() {
 
       <div className="modal-dark" id="modal-dark">
         <div className="modal">
+          <img className="modal-background" src={modalbackground}/>
           <div className="text-container" id="text-container">
             <h1>You caught the {data.fish}!</h1>
             <img className="fish-takes-space" src={data.fishImage} />

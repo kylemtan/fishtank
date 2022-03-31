@@ -13,14 +13,15 @@
   overflow: hidden;
 }
 
-p, h1, h2, a {
+/* p, h1, h2, a {
   overflow: auto;
-}
+} */
 
 .container {
   overflow: hidden;
   width: 100%;
   height: 100vh;
+  position: relative;
 }
 
 .net-cursor {
@@ -55,7 +56,7 @@ p, h1, h2, a {
   height: 100vh;
   position: absolute;
   background-color: black;
-  opacity: 0.3;
+  opacity: 0.2;
 }
 
 .fish {
@@ -113,8 +114,10 @@ p, h1, h2, a {
 }
 
 .modal {
-  height: calc(80% - 50px);
+  height: calc(40vw - 50px);
   width: calc(80% - 50px);
+  max-width:95%;
+  max-height:95%;
   background-color: #eeeeee;
   border-radius: 50px;
   padding: 25px;
@@ -123,6 +126,15 @@ p, h1, h2, a {
   display: flex;
   justify-content: space-between;
   overflow-x: hidden;
+  position: relative;
+}
+
+.modal-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80vw;
+  opacity: 0.3;
 }
 
 .close-modal {
@@ -181,10 +193,7 @@ p, h1, h2, a {
 }
 
 .text-container {
-  display: flex;
-  flex-direction: column;
   width: calc((100% - 50px) / 2);
-  justify-content: center;
   position: relative;
   overflow-y: auto;
 }
@@ -223,5 +232,56 @@ p, h1, h2, a {
   }
   to {
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 950px){
+  .modal {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    display: block;
+  }
+
+  .modal-background {
+    display: none;
+  }
+
+  .text-container {
+    width: 100%;
+  }
+
+  .image-container {
+    width: 100%;
+    margin-top: 50px;
+  }
+
+  .project-image {
+    position: static !important;
+  }
+
+  .net-cursor {
+    display: none;
+  }
+
+  .bubble {
+    display: none;
+  }
+
+  .fish {
+    width: 15vh;
+  }
+
+  .fish-big {
+    width: 20vh;
+  }
+
+  .fish-small {
+    width: 10vh;
+  }
+
+  .tank {
+    height: 100vh;
+    width: 200vh;
   }
 }
